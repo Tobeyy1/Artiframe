@@ -1,0 +1,117 @@
+.container {
+  min-width: 100vw;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  p {
+    text-transform: uppercase;
+    opacity: 0.65;
+    font-weight: 500;
+    font-size: clamp(1rem, 2vw + 1px, 4rem);
+    padding-inline: 1rem;
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+
+    & > span {
+      text-transform: uppercase;
+      font-size: clamp(2.5rem, 9vw + 1px, 10rem);
+      font-weight: 800;
+      text-align: left;
+    }
+  }
+
+  button {
+    height: clamp(2rem, 7vw + 1px, 8rem);
+    aspect-ratio: 1;
+    border-radius: 100px;
+    border: 2px solid #000;
+    background-color: transparent;
+    color: #000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(1rem, 3vw + 1px, 3rem);
+    // height: 100%;
+    animation: buttonAnimation 3s ease-in-out forwards;
+    cursor: pointer;
+
+    span {
+      display: none;
+    }
+  }
+}
+
+@keyframes buttonAnimation {
+  0% {
+    rotate: 0deg;
+    scale: 0;
+  }
+  30% {
+    rotate: 450deg;
+    scale: 1.25;
+  }
+  50% {
+    rotate: -45deg;
+    scale: 1;
+  }
+  60% {
+    rotate: 45deg;
+  }
+  70% {
+    rotate: -22.5deg;
+  }
+  80% {
+    rotate: 22.5deg;
+  }
+  100% {
+    rotate: 0deg;
+  }
+}
+
+@media screen and (width < 450px) {
+  .container {
+    h1 {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    p {
+      flex: 1;
+      text-align: left;
+      display: flex;
+      align-items: end;
+    }
+
+    div {
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-between;
+      padding-bottom: 1rem;
+      padding-inline: 1rem;
+
+      button {
+        width: 100%;
+        animation: none;
+        height: 3rem;
+        border-radius: 12px;
+        background-color: var(--secondary);
+        color: var(--primary);
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+
+        span {
+          display: inline-block;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+.container {
+  position: relative;
+  left: 0;
+  width: 200dvw;
+  height: 100dvh;
+  background-color: #e2e2e2;
+  color: #000;
+  display: flex;
+  overflow: auto;
+
+  transition: left 250ms ease-in-out;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
