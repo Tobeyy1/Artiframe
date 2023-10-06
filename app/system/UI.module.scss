@@ -1,5 +1,6 @@
 .container {
   min-width: 100dvw;
-  min-height: 100dvh;
+  height: 100dvh;
   position: relative;
+  background-color: var(--primary);
 }

@@ -40,7 +40,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
 }) => {
   const [imageURL, setImageURL] = useState<string | null>(null);
   const [textColor, setTextColor] = useState<string>("#000");
-  const [textSize, setTextSize] = useState<number>(50);
+  const [textSize, setTextSize] = useState<number>(30);
   const [textPosition, setTextPosition] = useState<TextPosition>({
     top: 50,
     left: 50,
@@ -58,7 +58,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
 
   const inviteNameStyles = {
     color: textColor,
-    fontSize: `${textSize}vw`,
+    fontSize: `${textSize}px`,
     top: `${textPosition.top}%`,
     left: `${textPosition.left}%`,
     width: `${textWidth.width}%`,
@@ -181,7 +181,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
                 name="textSize"
                 className={classes.input}
                 onChange={(event: any) => setTextSize(+event.target.value)}
-                placeholder="50px"
+                placeholder="30px"
               />
             </label>
 

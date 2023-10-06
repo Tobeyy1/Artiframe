@@ -8,9 +8,8 @@ interface StyledDropZoneProps {
 
 const baseStyle = {
   flex: 1,
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
+  display: "grid",
+  placeItems: "center",
   padding: "20px",
   borderWidth: 2,
   borderColor: "#000",

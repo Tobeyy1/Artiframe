@@ -3,10 +3,12 @@
 import React, { useState } from "react";
 import classes from "./UI.module.scss";
 import Typewriter from "typewriter-effect";
-import ImageUploader from "./ImageUploader";
-import InviteeSetup from "./InviteeSetup";
+import ImageUploader from "../components/ImageUploader";
+import InviteeSetup from "../components/InviteeSetup";
+import Transition from "../components/Transition/Transition";
 
 const UI = () => {
+  const [showTransition, setShowTransition] = useState(true);
   const [showInviteeSetup, setShowInviteeSetup] = useState<boolean>(false);
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
   const [namesOfInvitees, setNamesOfInvitees] = useState<string[]>([]);
@@ -25,8 +27,15 @@ const UI = () => {
     }
   };
 
+  const onAnimationComplete = () => {
+    setShowTransition(false);
+  };
+
   return (
     <div className={classes.container}>
+      {showTransition && (
+        <Transition mode={"intro"} onComplete={onAnimationComplete} />
+      )}
       {/* <Typewriter
         options={{
           cursor: " ",
