@@ -6,28 +6,96 @@ import { MdArrowBackIosNew } from "react-icons/md";
 
 import Link from "next/link";
 
-import React, { useState } from "react";
+import React, { FormEvent, useEffect, useState } from "react";
 import Transition from "@/app/components/Transition/Transition";
 import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
+import { useSession } from "next-auth/react";
+import LoadingSpinner from "@/app/components/LoadingSpinner/LoadingSpinner";
+import InfoModal from "@/app/components/InfoModal/InfoModal";
+import { AnimatePresence } from "framer-motion";
+
+type InfoModalType = {
+  visible: boolean;
+  mode: string;
+  message: string;
+};
 
 const Login = () => {
   const [showTransition, setShowTransition] = useState(false);
   const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [infoModalDetails, setInfoModalDetails] = useState<InfoModalType>({
+    visible: false,
+    mode: "",
+    message: "",
+  });
+
   const router = useRouter();
+  const { data: session, status } = useSession();
 
   const passwordVisibilityHandler = () => {
     setIsPasswordVisible(!isPasswordVisible);
   };
 
   const onAnimationComplete = () => {
-    router.push("/system");
+    router.replace("/system");
     // setShowTransition(false);
   };
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    setIsLoading(true);
+
+    const formData = new FormData(event.currentTarget);
+    const response = await signIn("credentials", {
+      email: formData.get("email"),
+      password: formData.get("password"),
+      redirect: false,
+    });
+
+    console.log({ response });
+    if (!response?.error) {
+      setShowTransition(true);
+      return;
+    }
+
+    setIsLoading(false);
+    setInfoModalDetails({
+      visible: true,
+      mode: "ERROR",
+      message: response?.error,
+    });
+  };
+
+  useEffect(() => {
+    if (session) {
+      setShowTransition(true);
+      console.log(session);
+    }
+  }, [session, status]);
+
   return (
     <>
       {showTransition && (
         <Transition mode={"outro"} onComplete={onAnimationComplete} />
       )}
+      <AnimatePresence>
+        {infoModalDetails.visible && (
+          <InfoModal
+            mode={infoModalDetails.mode}
+            message={infoModalDetails.message}
+            onClose={() =>
+              setInfoModalDetails({
+                visible: false,
+                mode: "",
+                message: "",
+              })
+            }
+          />
+        )}
+      </AnimatePresence>
+      {isLoading && <LoadingSpinner />}
       <div className={classes.container}>
         <header className={classes.header}>
           <h1>
@@ -51,17 +119,17 @@ const Login = () => {
           </p>
         </header>
 
-        <form className={classes.form}>
+        <form className={classes.form} onSubmit={handleSubmit}>
           <input
             type="text"
-            name="Email"
+            name="email"
             placeholder="Email Address"
             id={classes.email__input}
           />
           <div className={classes.password__input__holder}>
             <input
               type={isPasswordVisible ? "text" : "password"}
-              name="Password"
+              name="password"
               placeholder="Password"
               id={classes.password__input}
             />
@@ -72,16 +140,14 @@ const Login = () => {
               {isPasswordVisible ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
             </span>
           </div>
+          <button
+            type="submit"
+            className={classes.login__cta}
+            onClick={() => {}}
+          >
+            Log In
+          </button>
         </form>
-        <button
-          type="button"
-          className={classes.login__cta}
-          onClick={() => {
-            setShowTransition(true);
-          }}
-        >
-          Log In
-        </button>
       </div>
     </>
   );

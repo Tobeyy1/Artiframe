@@ -1,17 +1,30 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import classes from "./subscription.module.scss";
 import Image from "next/image";
 import { subscriptionPage } from "@/app/assets/SVGs";
 import { useRouter } from "next/navigation";
+import ActiveSubscription from "./ActiveSubscription";
+import { useSession } from "next-auth/react";
 
 const Subscription = () => {
   const [selectedSubscription, setSelectedSubscription] =
     useState<string>("yearly");
+  const [isSubscriptionActive, setIsSubscriptionActive] =
+    useState<boolean>(false);
   const router = useRouter();
+  const { data: session } = useSession();
+
+  useEffect(() => {
+    if (session?.user?.subscription !== "free") {
+      setIsSubscriptionActive(true);
+    }
+  }, [session]);
+
   return (
     <div className={classes.container}>
+      {isSubscriptionActive && <ActiveSubscription />}
       <section className={classes.text__content}>
         <h2>Subscribe!</h2>
         <h3>Achieve your goals!</h3>

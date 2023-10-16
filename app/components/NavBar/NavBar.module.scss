@@ -1,0 +1,51 @@
+.container {
+  position: fixed;
+  background-color: var(--primary);
+  color: var(--secondary);
+  height: 100dvh;
+  width: 10rem;
+  padding: 1rem;
+  background-color: var(--primary);
+  text-align: center;
+  border: 1px solid var(--secondary);
+  z-index: 10000;
+  transition: all 250ms ease-in-out;
+
+  h1 {
+    margin-bottom: 1rem;
+  }
+
+  ul {
+    list-style: none;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    #logout {
+      padding: 0.5rem 1rem;
+    }
+
+    li {
+      padding: 0.5rem 1rem;
+      background-color: var(--primary);
+      border-radius: 6px;
+      cursor: pointer;
+      -webkit-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
+      -moz-box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
+      box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.5);
+    }
+  }
+}
+
+.menu__toggler {
+  position: absolute;
+  left: 100%;
+  top: 1rem;
+  padding: 0.5rem;
+  border-radius: 0px 6px 6px 0px;
+  background-color: var(--primary);
+  border: 1px solid var(--secondary);
+  border-left: none;
+  cursor: pointer;
+}
