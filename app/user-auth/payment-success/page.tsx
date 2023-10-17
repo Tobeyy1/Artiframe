@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import classes from "./paymentsuccess.module.scss";
 import { LuCheckCircle } from "react-icons/lu";
 import Link from "next/link";
@@ -11,12 +11,16 @@ import { useRouter } from "next/navigation";
 
 const PaymentSuccess = () => {
   const [showTransition, setShowTransition] = useState<boolean>(false);
-
   const router = useRouter();
+
+  const previousURL = document.referrer;
+  console.log("Previous URL: ", previousURL);
+  useEffect(() => {}, []);
+
   const onAnimationComplete = () => {
     router.push("/system");
-    // setShowTransition(false);
   };
+
   return (
     <>
       {showTransition && (
@@ -24,6 +28,7 @@ const PaymentSuccess = () => {
       )}
       <div className={classes.container}>
         <h1>Payment Received!</h1>
+        <h1>{previousURL} </h1>
         <div className={classes.image__container}>
           <Image
             src={successPage}

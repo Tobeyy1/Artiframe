@@ -7,6 +7,7 @@ import StyledDropZone from "./StyledDropZone";
 import Image from "next/image";
 import html2canvas from "html2canvas";
 import { FiDownload } from "react-icons/fi";
+import { useSession } from "next-auth/react";
 
 interface TextPosition {
   top: number;
@@ -27,6 +28,7 @@ interface ImageUploaderProps {
   currentInvitee: string | null;
   namesOfInvitees: string[];
   setCurrentInvitee: (value: string) => void;
+  onFreeAccountSubmit: () => void;
 }
 
 const ImageUploader: React.FC<ImageUploaderProps> = ({
@@ -37,6 +39,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
   isSetupCompleted,
   setCurrentInvitee,
   namesOfInvitees,
+  onFreeAccountSubmit,
 }) => {
   const [imageURL, setImageURL] = useState<string | null>(null);
   const [textColor, setTextColor] = useState<string>("#000");
@@ -51,6 +54,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
   });
   const [startDownload, setStartDownload] = useState(false);
   const captureRef = useRef<HTMLImageElement | null>(null);
+  const { data: session } = useSession();
 
   const imageURLHandler = (imagePath: string) => {
     setImageURL(imagePath);
@@ -250,7 +254,16 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
                 />
               </label>
             </div>
-            <button onClick={() => onShow(true)} type="button">
+            <button
+              onClick={() => {
+                if (session && session?.user?.subscription === "free") {
+                  onFreeAccountSubmit();
+                } else {
+                  onShow(true);
+                }
+              }}
+              type="button"
+            >
               SUBMIT
             </button>
           </form>

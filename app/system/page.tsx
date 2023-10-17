@@ -1,8 +1,7 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import classes from "./UI.module.scss";
-import Typewriter from "typewriter-effect";
 import ImageUploader from "../components/ImageUploader";
 import InviteeSetup from "../components/InviteeSetup";
 import Transition from "../components/Transition/Transition";
@@ -10,7 +9,6 @@ import NavBar from "../components/NavBar/NavBar";
 import { AnimatePresence } from "framer-motion";
 import InfoModal from "../components/InfoModal/InfoModal";
 import { useRouter } from "next/navigation";
-import { useSession } from "next-auth/react";
 
 type InfoModalType = {
   visible: boolean;
@@ -32,19 +30,18 @@ const UI = () => {
     mode: "",
     message: "",
   });
-  const { data: session } = useSession();
+
+  sessionStorage.setItem("Subscription", "monthly");
 
   const router = useRouter();
 
-  useEffect(() => {
-    if (session && session?.user?.subscription === "free") {
-      setInfoModalDetails({
-        visible: true,
-        mode: "ALERT",
-        message: "Looks like you don't have an active subscription plan",
-      });
-    }
-  }, [session]);
+  const infoModalDetailsHandler = () => {
+    setInfoModalDetails({
+      visible: true,
+      mode: "ALERT",
+      message: "Looks like you don't have an active subscription plan",
+    });
+  };
 
   const onAnimationComplete = () => {
     setShowTransition(false);
@@ -72,19 +69,6 @@ const UI = () => {
           />
         )}
       </AnimatePresence>
-      {/* <Typewriter
-        options={{
-          cursor: " ",
-        }}
-        onInit={(typewriter) => {
-          typewriter
-            .pauseFor(150)
-            .typeString("Artist.")
-            .deleteChars(7)
-            .typeString("Illustrator.")
-            .start();
-        }}
-      /> */}
       <ImageUploader
         onShow={setShowInviteeSetup}
         capturedImage={capturedImage}
@@ -93,6 +77,7 @@ const UI = () => {
         isSetupCompleted={isSetupCompleted}
         namesOfInvitees={namesOfInvitees}
         setCurrentInvitee={setCurrentInvitee}
+        onFreeAccountSubmit={infoModalDetailsHandler}
       />
       {showInviteeSetup && !isSetupCompleted && (
         <InviteeSetup
