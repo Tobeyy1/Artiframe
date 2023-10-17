@@ -11,11 +11,14 @@ import { useRouter } from "next/navigation";
 
 const PaymentSuccess = () => {
   const [showTransition, setShowTransition] = useState<boolean>(false);
+  const [previousURL, setPreviousURL] = useState<string>("");
   const router = useRouter();
 
-  const previousURL = document.referrer;
-  console.log("Previous URL: ", previousURL);
-  useEffect(() => {}, []);
+  useEffect(() => {
+    const previousURL = document.referrer;
+    console.log("Previous URL: ", previousURL);
+    setPreviousURL(previousURL);
+  }, []);
 
   const onAnimationComplete = () => {
     router.push("/system");
