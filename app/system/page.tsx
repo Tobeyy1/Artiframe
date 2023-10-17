@@ -31,8 +31,6 @@ const UI = () => {
     message: "",
   });
 
-  sessionStorage.setItem("Subscription", "monthly");
-
   const router = useRouter();
 
   const infoModalDetailsHandler = () => {
