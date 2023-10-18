@@ -100,7 +100,6 @@ const PaymentSuccess = () => {
       {isLoading && <LoadingSpinner />}
       <div className={classes.container}>
         <h1>Payment Received!</h1>
-        <h1>{previousURL} </h1>
         <div className={classes.image__container}>
           <Image
             src={successPage}
