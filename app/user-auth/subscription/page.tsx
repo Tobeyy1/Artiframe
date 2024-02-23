@@ -66,6 +66,7 @@ const Subscription = () => {
         <button
           type="button"
           onClick={() => {
+            sessionStorage.setItem("subscription", selectedSubscription);
             router.push("https://paystack.com/pay/artiframe-monthly");
           }}
         >

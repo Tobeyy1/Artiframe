@@ -9,7 +9,6 @@ import { useRouter } from "next/navigation";
 interface WelcomeProps {}
 
 const Welcome: React.FC<WelcomeProps> = () => {
-  const [showTransition, setShowTransition] = useState(false);
   const router = useRouter();
   return (
     <>

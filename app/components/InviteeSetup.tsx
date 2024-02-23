@@ -79,7 +79,12 @@ const InviteeSetup: React.FC<Props> = ({
                 onChange={(event) => setNumberOfInvites(+event.target.value)}
               />
             </label>
-            <button type="button" onClick={() => setIsDisplayNamesActive(true)}>
+            <button
+              type="button"
+              onClick={() => {
+                if (numberOfInvites > 0) setIsDisplayNamesActive(true);
+              }}
+            >
               Next <IoIosArrowForward />
             </button>
           </motion.form>

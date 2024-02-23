@@ -98,6 +98,7 @@
         flex: 1;
         height: 3rem;
         border-radius: 6px;
+        color: var(--primary);
       }
 
       & > #text__color__input {
@@ -156,6 +157,7 @@
     text-transform: uppercase;
     letter-spacing: 5px;
     background-color: var(--secondary);
+    color: var(--primary);
     cursor: pointer;
   }
 }

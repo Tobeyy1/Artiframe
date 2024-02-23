@@ -48,6 +48,7 @@
     background-color: var(--secondary);
     border: 1px solid var(--secondary);
     border-radius: 6px;
+    color: var(--primary);
     gap: 0.5rem;
   }
 }
@@ -123,6 +124,7 @@
       border: 2px solid var(--secondary);
       border-radius: 6px;
       gap: 0.5rem;
+      color: var(--primary);
     }
 
     .back {

@@ -105,7 +105,7 @@ const ImageUploader: React.FC<ImageUploaderProps> = ({
 
       // If there are more invitees, set the next invitee as the currentInvitee
       if (currentIndex < namesOfInvitees.length - 1) {
-        setCurrentInvitee(namesOfInvitees[currentIndex + 1]);
+        setCurrentInvitee(namesOfInvitees[currentIndex + 1]); //This returns the name of the current invitee e.g "John Doe"
       } else {
         // All invitees have been processed, so reset the download process
         setStartDownload(false);

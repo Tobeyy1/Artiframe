@@ -38,10 +38,14 @@ const PaymentSuccess = () => {
   const subscriptionHandler = async () => {
     setIsLoading(true);
 
+    const subscriptionType = sessionStorage.getItem("subscription");
+
+    if (!subscriptionType) return;
+
     const response = await fetch("/api/subscription", {
       method: "POST",
       body: JSON.stringify({
-        subscription: "monthly",
+        subscription: subscriptionType,
         email: session?.user.email,
       }),
     });
